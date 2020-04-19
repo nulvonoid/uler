@@ -11,4 +11,4 @@ layar.tracer(0)
 
 
 
-layar.mainloop()            #ini baris terakhir
+layar.mainloop()            #ini baris terakhir banget
