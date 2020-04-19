@@ -35,10 +35,10 @@ segmen = []       #tiap kali kepala emam, kelapa nambah segment.
 
 
 #function
-def gerak():
+def gerak():                            # ini bikin fungsi kalo up jadi apa, down jadi apa. tiap turtle itu punya xcor dan ycor. itu yang diganti2.
     if kepala.direction == 'up':
         y = kepala.ycor()
-        kepala.sety(y+20)
+        kepala.sety(y+20)               #sety ini kita define ycor baru buat si kepala. bikin efek pindah gitu. 
 
     if kepala.direction == 'down':
         y = kepala.ycor()
@@ -79,12 +79,12 @@ while True:
 
     if kepala.distance (emam) <20:              #ini artinya collide, default ukuran turtle 20x20. jadi kalo jarak udah dibawah 20, berarti udah ketemu (kemakan)
         #pindahin emam random
-        x = random.randint(-290, 290)
-        y = random.randint(-290, 290)
+        x = random.randint(-290, 290)           #kenapa 290 karena ukuran layar kan 600 600, berarti di kiri -300, kanan 300 dst. kalo pas di pasang 300, nanti dia ilang setengah,
+        y = random.randint(-290, 290)           #turtlenya kan 20x20, berarti tengah2nya 0,0; bates kirinya -10 bates kanannya 10. jadi kalo di set di 290, dia bakal tetep keliatan full kotak di ujung, center turtlenya di 290. 
         emam.goto(x,y)
 
         #buat nambahin segment
-        segmen_baru = turtle.Turtle()
+        segmen_baru = turtle.Turtle()           #badan itu segmen_baru. dia di def kaya objek turtle baru
         segmen_baru.speed(0)
         segmen_baru.shape("square")
         segmen_baru.color("grey")
@@ -92,20 +92,20 @@ while True:
         segmen.append(segmen_baru)      #ini nambah segmen_baru ke list segmen di atas
 
     #pindahin segmen terakhir ke pertama tapi urutannya kebalik
-    for index in range(len(segmen)-1,0,-1):
-        x = segmen[index-1].xcor()
+    for index in range(len(segmen)-1,0,-1):         #ini harus baca lagi ttg list. 
+        x = segmen[index-1].xcor()                  
         y = segmen[index-1].ycor()
-        segmen[index].goto(x,y)
+        segmen[index].goto(x,y)                        #intinya segmen barunya bakal ke tempat segmen sebelomnya yg terakhir.  
 
     #pindahin segmen ke - 0 ke tempat kepala
-    if len(segmen) > 0:
+    if len(segmen) > 0:         # ini kali pertama makan, len list segmen langung nambah.
         x = kepala.xcor()
         y = kepala.ycor()
-        segmen[0].goto(x,y)
+        segmen[0].goto(x,y)     #list segmen pindah ke tempat kepala sebelomnya. ini bikin efek badan ngikutin pala.
 
     gerak()
 
-    time.sleep(delay)
+    time.sleep(delay)       # biar ga kecepetan, jadi ada delaynya. delay di set diatas
 
 
 
