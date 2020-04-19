@@ -2,6 +2,7 @@
 
 import turtle               #install dulu, apt install python3-tk 
 import time
+import random
 
 delay = 0.1
 
@@ -20,6 +21,16 @@ kepala.color("brown")
 kepala.penup()                  #jadi kalo jalan ga bikin garis.
 kepala.goto(0,0)
 kepala.direction = "stop"
+
+#makanan uler (kopas aja kepalanya)
+emam = turtle.Turtle()
+emam.speed(0)
+emam.shape("square")
+emam.color("green")
+emam.penup()                  
+emam.goto(0,100)
+
+
 
 #function
 def gerak():
@@ -63,6 +74,12 @@ layar.onkeypress(go_right, "Right")
 #game utama loop
 while True:
     layar.update()          #ini loop buat selalu update layar
+
+    if kepala.distance (emam) <20:
+        #pindahin emam random
+        x = random.randint(-290, 290)
+        y = random.randint(-290, 290)
+        emam.goto(x,y)
 
     gerak()
 
