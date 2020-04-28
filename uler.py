@@ -77,6 +77,19 @@ layar.onkeypress(go_right, "Right")
 while True:
     layar.update()          #ini loop buat selalu update layar
 
+    #kepala kena border
+    if kepala.xcor()>290 or kepala.xcor()<-290 or kepala.ycor()>290 or kepala.ycor()<-290:
+        time.sleep(1)
+        kepala.goto(0,0)
+        kepala.direction = "stop"
+
+        #segmen ilang
+        for segmen_baru in segmen:
+            segmen_baru.goto(1000,1000)
+
+        segmen.clear()
+
+
     if kepala.distance (emam) <20:              #ini artinya collide, default ukuran turtle 20x20. jadi kalo jarak udah dibawah 20, berarti udah ketemu (kemakan)
         #pindahin emam random
         x = random.randint(-290, 290)           #kenapa 290 karena ukuran layar kan 600 600, berarti di kiri -300, kanan 300 dst. kalo pas di pasang 300, nanti dia ilang setengah,
