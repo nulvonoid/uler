@@ -53,16 +53,20 @@ def gerak():                            # ini bikin fungsi kalo up jadi apa, dow
         kepala.setx(x+20)
 
 def go_up():
-    kepala.direction = "up"
+    if kepala direction != "down":
+        kepala.direction = "up"
 
 def go_down():
-    kepala.direction = "down"
+    if kepala direction != "up":
+        kepala.direction = "down"
 
 def go_left():
-    kepala.direction = "left"
+    if kepala direction != "right":
+        kepala.direction = "left"
 
 def go_right():
-    kepala.direction = "right"
+    if kepala direction != "left":
+         kepala.direction = "right"
 
 # Keyboard bindings
 layar.listen()
@@ -117,6 +121,19 @@ while True:
         segmen[0].goto(x,y)     #list segmen pindah ke tempat kepala sebelomnya. ini bikin efek badan ngikutin pala.
 
     gerak()
+
+    #cek tumbukan sama badan
+    for segmen_baru in segmen:
+        if segmen_baru.distance(kepala) < 20:
+            time.sleep(1)
+            kepala.goto(0,0)
+            kepala.direction="stop"
+
+            for segmen_baru in segmen:
+                segmen_baru.goto(1000,1000)
+
+
+            segmen.clear()
 
     time.sleep(delay)       # biar ga kecepetan, jadi ada delaynya. delay di set diatas
 
