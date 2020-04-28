@@ -6,6 +6,9 @@ import random
 
 delay = 0.1
 
+score = 0
+high_score = 0
+
 layar = turtle.Screen()
 layar.title("Game Uler")
 layar.bgcolor("black")
@@ -32,6 +35,15 @@ emam.goto(0,100)
 
 segmen = []       #tiap kali kepala emam, kelapa nambah segment.
 
+#Pen
+pen = turtle.Turtle()
+pen.speed=(0)
+pen.shape("square")
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0,260)
+pen.write("Score : 0  High Score: 0", align = "center", font=("Courier", 24, "normal"))
 
 
 #function
@@ -53,19 +65,19 @@ def gerak():                            # ini bikin fungsi kalo up jadi apa, dow
         kepala.setx(x+20)
 
 def go_up():
-    if kepala direction != "down":
+    if kepala.direction != "down":
         kepala.direction = "up"
 
 def go_down():
-    if kepala direction != "up":
+    if kepala.direction != "up":
         kepala.direction = "down"
 
 def go_left():
-    if kepala direction != "right":
+    if kepala.direction != "right":
         kepala.direction = "left"
 
 def go_right():
-    if kepala direction != "left":
+    if kepala.direction != "left":
          kepala.direction = "right"
 
 # Keyboard bindings
@@ -93,6 +105,11 @@ while True:
 
         segmen.clear()
 
+        #reset score
+        score=0
+        pen.clear()
+        pen.write("Score : {}  High Score: {}".format(score, high_score), align = "center", font=("Courier", 24, "normal"))
+
 
     if kepala.distance (emam) <20:              #ini artinya collide, default ukuran turtle 20x20. jadi kalo jarak udah dibawah 20, berarti udah ketemu (kemakan)
         #pindahin emam random
@@ -107,6 +124,18 @@ while True:
         segmen_baru.color("grey")
         segmen_baru.penup()
         segmen.append(segmen_baru)      #ini nambah segmen_baru ke list segmen di atas
+
+        #delaynya kurangin pas makan 
+        delay -= 0.0001
+
+        score += 10
+
+        if score > high_score:
+            high_score = score
+
+        pen.clear()
+        pen.write("Score : {}  High Score: {}".format(score, high_score), align = "center", font=("Courier", 24, "normal"))
+
 
     #pindahin segmen terakhir ke pertama tapi urutannya kebalik
     for index in range(len(segmen)-1,0,-1):         #ini harus baca lagi ttg list. 
@@ -134,6 +163,14 @@ while True:
 
 
             segmen.clear()
+
+            #reset score
+            score=0
+
+            delay = 0.1
+            pen.clear()
+            pen.write("Score : {}  High Score: {}".format(score, high_score), align = "center", font=("Courier", 24, "normal"))
+
 
     time.sleep(delay)       # biar ga kecepetan, jadi ada delaynya. delay di set diatas
 
